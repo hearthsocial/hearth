@@ -84,7 +84,7 @@ export default function RootLayout() {
           </Pressable> 
         ),
         headerRight:()=>(
-        <Pressable style={{backgroundColor:"#edebe5",padding:10,borderRadius:12, marginRight:20,borderWidth:1}}>
+        <Pressable style={{padding:10,borderRadius:12, marginRight:20,borderWidth:1,borderColor:"#717171"}}>
           <Ionicons name="notifications" size={24} color="black" />
         </Pressable>
         )

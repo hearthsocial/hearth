@@ -21,6 +21,6 @@ export default async function setUserData(){
         console.error(usererror||"error selecting user data.")
         return; //TODO: add error handling logic
     }
-    AsyncStorage.setMany({created_at:userdata[0].created_at,followersNum:userdata[0].followers,pfp:userdata[0].pfp,public:userdata[0].public,username:userdata[0].username,id:userdata[0].id})
+    AsyncStorage.setMany({created_at:userdata[0].created_at,followersNum:userdata[0].followers,pfp:userdata[0].pfp,public:userdata[0].public,username:userdata[0].username,id:userdata[0].id,name:userdata[0].name})
 }
 }

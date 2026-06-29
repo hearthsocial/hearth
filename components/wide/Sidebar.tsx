@@ -19,12 +19,13 @@ export default function Sidebar() {
         borderColor: "#717171",
         backgroundColor: "#f2ecdf",
         paddingLeft: 30,
-        justifyContent: "center",
+        justifyContent:"center",
         marginRight: 20,
         flexDirection: "column",
         rowGap: 20,
       }}
     >
+    
       <Pressable onPress={() => router.push("/(wide)")} style={styles.screens}>
         {isActiveTab("home") && <View style={styles.activeIndicator}></View>}
         <Octicons name="home" size={28} color={isActiveTab("home")?"black":"#717171"}  />
@@ -55,6 +56,16 @@ export default function Sidebar() {
         <Text style={[styles.text,{color:isActiveTab("text")?"black":"#717171"}]}>Text</Text>
       </Pressable>
       <Pressable
+        onPress={() => router.push("/(wide)/clippd")}
+        style={styles.screens}
+      >
+        {isActiveTab("clippd") && (
+          <View style={styles.activeIndicator}></View>
+        )}
+        <Octicons name="device-camera" size={28} color={isActiveTab("clippd")?"black":"#717171"}  />
+        <Text style={[styles.text,{color:isActiveTab("clipped")?"black":"#717171"}]}>Clippd</Text>
+      </Pressable>
+      <Pressable
         onPress={() => router.push("/(wide)/doorstep")}
         style={styles.screens}
       >
@@ -74,7 +85,9 @@ export default function Sidebar() {
         <Octicons name="plus" size={28} color={isActiveTab("create")?"black":"#717171"}  />
         <Text style={[styles.text,{color:isActiveTab("create")?"black":"#717171"}]}>Create</Text>
       </Pressable>
-    </View>
+      
+      </View>
+    
   );
 }
 const styles = StyleSheet.create({
@@ -84,7 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     gap: 15,
     width: "100%",
-    paddingVertical: 8,
+    paddingVertical: 2,
   },
   text: {
     fontFamily: "Rubik_400Regular",
