@@ -7,6 +7,7 @@ import {
   useFonts,
   Rubik_400Regular,
   Rubik_600SemiBold,
+  Rubik_500Medium
 } from "@expo-google-fonts/rubik";
 import * as SplashScreen from "expo-splash-screen";
 import setUserData from "@/utils/setUserData";
@@ -16,15 +17,18 @@ export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
   const { width } = useWindowDimensions();
-
+  //@ts-ignore
+      const isInAuth = segments.includes("(auth)");
   const [loading, setLoading] = useState(true);
   const [fontsLoaded, error] = useFonts({
     Rubik_400Regular,
     Rubik_600SemiBold,
+    Rubik_500Medium
   });
-  const isWide = width >= 768;
+  
   const [pfp,setPfp] = useState<string|null>("noprofile.jpg")
   useEffect(() => {
+    const isWide = width >= 768;
     const handleRedirect = async () => {
       
       const targetRoot = isWide ? "(wide)" : "(mobile)";
@@ -35,8 +39,6 @@ export default function RootLayout() {
       setPfp(pfplocal)
       const currentRoot = segments[0];
 
-      //@ts-ignore
-      const isInAuth = segments.includes("(auth)");
 
       let targetPath = "";
 
@@ -75,16 +77,16 @@ export default function RootLayout() {
       screenOptions={{
         headerStyle: { backgroundColor: "#f2ecdf" },
         headerTitle: "",
-        headerShown:isWide,
+        headerShown:!isInAuth,
         headerLeft:()=>(
           <Pressable style={{borderRadius:60,width:40, marginLeft:20}}>
             <Image source={{ 
               uri: `https://irluagoptkeyvfwoqtto.supabase.co/storage/v1/object/public/pfp/${pfp}` 
-            }} style={{ width: 40, height: 40, borderRadius:80, borderWidth:2 ,borderColor:"#eb6a02"}}></Image>
+            }} style={{ width: 40, height: 40, borderRadius:20, borderWidth:2 ,borderColor:"#eb6a02"}}></Image>
           </Pressable> 
         ),
         headerRight:()=>(
-        <Pressable style={{padding:10,borderRadius:12, marginRight:20,borderWidth:1,borderColor:"#717171"}}>
+        <Pressable style={{padding:10,borderRadius:12, marginRight:20}}>
           <Ionicons name="notifications" size={24} color="black" />
         </Pressable>
         )

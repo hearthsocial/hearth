@@ -20,7 +20,6 @@ export default function Sidebar() {
         backgroundColor: "#f2ecdf",
         paddingLeft: 30,
         justifyContent:"center",
-        marginRight: 20,
         flexDirection: "column",
         rowGap: 20,
       }}
@@ -32,28 +31,28 @@ export default function Sidebar() {
         <Text style={[styles.text,{color:isActiveTab("home")?"black":"#717171"}]}>Home</Text>
       </Pressable>
       <Pressable
-        onPress={() => router.push("/(wide)/images")}
+        onPress={() => router.push("/(wide)/pics")}
         style={styles.screens}
       >
-        {isActiveTab("images") && <View style={styles.activeIndicator}></View>}
-        <Octicons name="image" size={28} color={isActiveTab("images")?"black":"#717171"}  />
-        <Text style={[styles.text,{color:isActiveTab("images")?"black":"#717171"}]}>Images</Text>
+        {isActiveTab("pics") && <View style={styles.activeIndicator}></View>}
+        <Octicons name="image" size={28} color={isActiveTab("pics")?"black":"#717171"}  />
+        <Text style={[styles.text,{color:isActiveTab("pics")?"black":"#717171"}]}>Pics</Text>
       </Pressable>
       <Pressable
-        onPress={() => router.push("/(wide)/videos")}
+        onPress={() => router.push("/(wide)/cuts")}
         style={styles.screens}
       >
-        {isActiveTab("videos") && <View style={styles.activeIndicator}></View>}
-        <Octicons name="device-camera-video" size={28} color={isActiveTab("videos")?"black":"#717171"}  />
-        <Text style={[styles.text,{color:isActiveTab("videos")?"black":"#717171"}]}>Video</Text>
+        {isActiveTab("cuts") && <View style={styles.activeIndicator}></View>}
+        <Octicons name="device-camera-video" size={28} color={isActiveTab("cuts")?"black":"#717171"}  />
+        <Text style={[styles.text,{color:isActiveTab("cuts")?"black":"#717171"}]}>Cuts</Text>
       </Pressable>
       <Pressable
-        onPress={() => router.push("/(wide)/text")}
+        onPress={() => router.push("/(wide)/notes")}
         style={styles.screens}
       >
-        {isActiveTab("text") && <View style={styles.activeIndicator}></View>}
-        <Octicons name="pencil" size={28} color={isActiveTab("text")?"black":"#717171"} />
-        <Text style={[styles.text,{color:isActiveTab("text")?"black":"#717171"}]}>Text</Text>
+        {isActiveTab("notes") && <View style={styles.activeIndicator}></View>}
+        <Octicons name="pencil" size={28} color={isActiveTab("notes")?"black":"#717171"} />
+        <Text style={[styles.text,{color:isActiveTab("notes")?"black":"#717171"}]}>Notes</Text>
       </Pressable>
       <Pressable
         onPress={() => router.push("/(wide)/clippd")}
@@ -106,11 +105,11 @@ const styles = StyleSheet.create({
   },
   activeIndicator: {
     position: "absolute",
-    left: -15,
+    left: -25,
     height: 28,
     width: 5,
     backgroundColor: "black",
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
+    borderRadius:10
+    
   },
 });
