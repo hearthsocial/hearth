@@ -1,6 +1,6 @@
 import { Stack, useRouter, useSegments } from "expo-router";
 import { useEffect, useState } from "react";
-import { useWindowDimensions } from "react-native";
+import { Image, Pressable, useWindowDimensions } from "react-native";
 import { supabase } from "@/utils/supabase";
 import isSignedIn from "@/utils/isSignedIn";
 import {
@@ -9,6 +9,9 @@ import {
   Rubik_600SemiBold,
 } from "@expo-google-fonts/rubik";
 import * as SplashScreen from "expo-splash-screen";
+import setUserData from "@/utils/setUserData";
+import  AsyncStorage  from "@react-native-async-storage/async-storage";
+import Ionicons from '@expo/vector-icons/Ionicons';
 export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
@@ -19,13 +22,17 @@ export default function RootLayout() {
     Rubik_400Regular,
     Rubik_600SemiBold,
   });
+  const isWide = width >= 768;
+  const [pfp,setPfp] = useState<string|null>("noprofile.jpg")
   useEffect(() => {
     const handleRedirect = async () => {
-      const isWide = width >= 768;
+      
       const targetRoot = isWide ? "(wide)" : "(mobile)";
 
       const signedIn = await isSignedIn();
-
+      await setUserData();
+      const pfplocal = await AsyncStorage.getItem("pfp")
+      setPfp(pfplocal)
       const currentRoot = segments[0];
 
       //@ts-ignore
@@ -63,5 +70,25 @@ export default function RootLayout() {
 
   if (loading || !fontsLoaded) return null;
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <Stack
+      screenOptions={{
+        headerStyle: { backgroundColor: "#f2ecdf" },
+        headerTitle: "",
+        headerShown:isWide,
+        headerLeft:()=>(
+          <Pressable style={{borderRadius:60,width:40, marginLeft:20}}>
+            <Image source={{ 
+              uri: `https://irluagoptkeyvfwoqtto.supabase.co/storage/v1/object/public/pfp/${pfp}` 
+            }} style={{ width: 40, height: 40, borderRadius:80, borderWidth:2 ,borderColor:"#eb6a02"}}></Image>
+          </Pressable> 
+        ),
+        headerRight:()=>(
+        <Pressable style={{backgroundColor:"#edebe5",padding:10,borderRadius:12, marginRight:20,borderWidth:1}}>
+          <Ionicons name="notifications" size={24} color="black" />
+        </Pressable>
+        )
+      }}
+    />
+  );
 }
