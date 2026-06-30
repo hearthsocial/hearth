@@ -34,7 +34,7 @@ export default function Login() {
   }
   async function continueAsGuest() {
     const { data, error } = await supabase.auth.signInAnonymously();
-    if (!data || error||!data.user) {
+    if (!data || error || !data.user) {
       setError(simplifyError(error?.message));
     } else {
       await AsyncStorage.setMany({ username: "Guest", id: data.user.id });
