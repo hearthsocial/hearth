@@ -11,20 +11,26 @@ export async function getNewContent(
   let prefs = getPreferences();
   let weights = getWeights();
   let nextContent = [];
-  let isntFreeroam = feed === "following" || "friends";
+  let isntFreeroam = feed === "following"||feed === "friends"; //can we pull random videos, or do we have to pull from a set list of users (friends/following)
   if (!prefs[0]) {
     //no preferences yet
 
     return;
   } else if (!prefs[5]) {
-    //less than five known tags
+    //less than five known opinions on tags
     return;
   }
-
-  prefs.sort((a, b) => (b.val ?? 0) - (a.val ?? 0));
+if(feed=="fyp"){ 
+  prefs.sort((a, b) => (b.val ?? 0) - (a.val ?? 0)); //sort by score
   let acceptableTags: { tag: string; score: number }[] = [];
-  prefs.forEach((tag) => {
-    acceptableTags.push({ tag: tag.tag, score: tag.val ?? 0 });
+  prefs.forEach((tagData) => {
+    if(tagData.val!==0){ // if the user hasn't explicitly banned this tag from their feed
+    acceptableTags.push({ tag: tagData.tag, score: tagData.val ?? 0 });
+    } 
   });
-  let nextTags = weightedRandomPick(acceptableTags, 20);
+  let nextTags = weightedRandomPick(acceptableTags, 20); //choose next 20 tags
+}else{
+    //TODO: build other feeds
+    return;
+}
 }
