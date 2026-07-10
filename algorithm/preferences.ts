@@ -8,6 +8,7 @@ export function getPreferences(tag?: string): preferences {
   });
   return preferences;
 }
-export function getPreference(tag: string):preference { //same as above, but for singular tag
+export function getPreference(tag: string): preference {
+  //same as above, but for singular tag
   return { tag: tag, val: storage.getNumber(tag) };
 }
