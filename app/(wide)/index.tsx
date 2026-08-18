@@ -10,7 +10,6 @@ export default function Wide() {
   const [numTags, setNumTags] = useState(8);
   const [numMessages, setNumMessages] = useState(9);
   const [numNewPosts, setNumNewPosts] = useState(3);
-  const [clippdDone, setClippedDone] = useState(false);
   const [name, setName] = useState("");
   const router = useRouter();
   useEffect(() => {
@@ -62,10 +61,10 @@ export default function Wide() {
           <Text style={styles.boxHeader}>{numNewPosts}</Text>
           <Text style={styles.boxExplanation}>New Posts</Text>
         </Pressable>
-        <Pressable style={styles.box} onPress={() => router.replace("/clippd")}>
-          <Text style={styles.boxHeader}>{clippdDone ? "Yes" : "No"}</Text>
+        <Pressable style={styles.box} >
+          <Text style={styles.boxHeader}>Coming soon</Text>
           <Text style={styles.boxExplanation}>
-            {clippdDone ? "Clippd has been done." : "Clippd has not been done."}
+            
           </Text>
         </Pressable>
       </View>

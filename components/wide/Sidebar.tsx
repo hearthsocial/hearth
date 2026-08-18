@@ -98,25 +98,6 @@ export default function Sidebar() {
         </Text>
       </Pressable>
       <Pressable
-        onPress={() => router.push("/(wide)/clippd")}
-        style={styles.screens}
-      >
-        {isActiveTab("clippd") && <View style={styles.activeIndicator}></View>}
-        <Octicons
-          name="device-camera"
-          size={28}
-          color={isActiveTab("clippd") ? "black" : "#717171"}
-        />
-        <Text
-          style={[
-            styles.text,
-            { color: isActiveTab("clipped") ? "black" : "#717171" },
-          ]}
-        >
-          Clippd
-        </Text>
-      </Pressable>
-      <Pressable
         onPress={() => router.push("/(wide)/doorstep")}
         style={styles.screens}
       >
