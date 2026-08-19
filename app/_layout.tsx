@@ -1,4 +1,4 @@
-import { Stack, useRouter, useSegments } from "expo-router";
+import { RelativePathString, Stack, useRouter, useSegments } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, Pressable, useWindowDimensions } from "react-native";
 import { supabase } from "@/utils/supabase";
@@ -33,17 +33,17 @@ export default function RootLayout() {
       const targetRoot = isWide ? "(wide)" : "(mobile)";
 
       const signedIn = await isSignedIn();
-      await setUserData();
-      const pfplocal = await AsyncStorage.getItem("pfp");
-      setPfp(pfplocal);
+    
       const currentRoot = segments[0];
 
-      let targetPath = "";
+      let targetPath = `/${targetRoot}`;
 
       if (!signedIn) {
         targetPath = `/${targetRoot}/(auth)/login`;
       } else {
-        targetPath = `/${targetRoot}`;
+        await setUserData();
+      const pfplocal = await AsyncStorage.getItem("pfp");
+      setPfp(pfplocal);
       }
       const alreadyInCorrectRoot = currentRoot === targetRoot;
 
@@ -54,7 +54,7 @@ export default function RootLayout() {
         // If root is correct but auth state is wrong, fix it
         if (!signedIn && !isInAuth) {
           //@ts-ignore
-          router.replace(`/${targetRoot}/(auth)/login`);
+          router.replace(targetPath);
         }
 
         if (signedIn && isInAuth) {

@@ -7,7 +7,7 @@ export default function WideLayout() {
   const isAuth = segments[1] == "(auth)";
   return (
     <View style={{ flex: 1, flexDirection: "row" }}>
-      {!isAuth && <Sidebar />}{" "}
+      {!isAuth && <Sidebar />}
       <View style={{ flex: 4 }}>
         <Slot />
       </View>

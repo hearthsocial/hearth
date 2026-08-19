@@ -9,6 +9,7 @@ export default async function setUserData() {
     AsyncStorage.setMany({ isGuest: "yes", pfp: "noprofile.jpg" });
     return;
   } else {
+  
     const {
       data: { user },
       error,
