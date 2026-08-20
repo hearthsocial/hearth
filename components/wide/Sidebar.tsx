@@ -8,6 +8,9 @@ export default function Sidebar() {
     if (tab == "home") {
       return segments.length <= 1 || segments[1] == undefined;
     }
+    if((tab=="clips"||tab=="notes"||tab=="pics")&&segments[1]=="mix"){
+      return true
+    }
     return segments[1] == tab;
   }
   return (
@@ -60,22 +63,22 @@ export default function Sidebar() {
         </Text>
       </Pressable>
       <Pressable
-        onPress={() => router.push("/(wide)/cuts")}
+        onPress={() => router.push("/(wide)/clips")}
         style={styles.screens}
       >
-        {isActiveTab("cuts") && <View style={styles.activeIndicator}></View>}
+        {isActiveTab("clips") && <View style={styles.activeIndicator}></View>}
         <Octicons
           name="device-camera-video"
           size={28}
-          color={isActiveTab("cuts") ? "black" : "#717171"}
+          color={isActiveTab("clips") ? "black" : "#717171"}
         />
         <Text
           style={[
             styles.text,
-            { color: isActiveTab("cuts") ? "black" : "#717171" },
+            { color: isActiveTab("clips") ? "black" : "#717171" },
           ]}
         >
-          Cuts
+          Clips
         </Text>
       </Pressable>
       <Pressable
@@ -105,7 +108,7 @@ export default function Sidebar() {
           <View style={styles.activeIndicator}></View>
         )}
         <Octicons
-          name="sign-in"
+          name="inbox"
           size={28}
           color={isActiveTab("doorstep") ? "black" : "#717171"}
         />
