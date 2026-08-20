@@ -41,7 +41,7 @@ export function weightedRandomPick(tags: scoredTags, repeat: number) {
     while (curTagData && curTagData.timesUsed >= curTagData.maxUses) {
       //if the selected tag has already maxed out, scroll through array to find the next available option
       positionInObject =
-        positionInObject == usedTags.length ? 0 : positionInObject++;
+        positionInObject == usedTags.length-1 ? 0 : (positionInObject+1);
       curTagData = usedTags[positionInObject];
     }
     if (curTagData) {

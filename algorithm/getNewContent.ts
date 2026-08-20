@@ -1,9 +1,9 @@
-import { getPreferences } from "./preferences";
-import { getWeights } from "./weights";
-import { weightedRandomPick } from "./weightedRandomPick";
 import { supabase } from "@/utils/supabase";
 import "react-native-url-polyfill/auto";
+import { getPreferences } from "./preferences";
 import { getContentParams } from "./types";
+import { weightedRandomPick } from "./weightedRandomPick";
+import { getWeights } from "./weights";
 
 export async function getNewContent({
   feed,
@@ -31,8 +31,12 @@ export async function getNewContent({
     let feedTypeList = [];
     if (type == "mix") {
       for (let i = 0; i < 20; i++) {
-        let randomNum = Math.random() * mixType.length;
+        let randomNum = Math.floor(Math.random() * mixType.length);
         feedTypeList.push(mixType[randomNum]); // type
+      }
+    } else {
+      for (let i = 0; i < 20; i++) {
+        feedTypeList.push(type);
       }
     }
     prefs.sort((a, b) => (b.val ?? 0) - (a.val ?? 0)); //sort by score
@@ -45,24 +49,30 @@ export async function getNewContent({
     });
     let nextTags = weightedRandomPick(acceptableTags, 20); //choose next 20 tags
     let nextContentData = [];
-
-    for (const [index, tag] of nextTags.entries()) {
+    let { data: postsData, error: postsError } = await supabase.rpc(
+      "get_post_bulk",
+      { tags: nextTags, type: feedTypeList },
+    );
+    if (postsError) {
+      console.log("error getting posts' data.");
+      return [];
+    }
+    for (const [index] of nextTags.entries()) {
       //loops through chosen tags
       let contType = feedTypeList[index] ? feedTypeList[index] : type;
-      let { data: postData, error: postError } = await supabase.rpc(
-        "get_post",
-        { tag: tag, type: contType },
-      );
-      if (!postData[0] || postError) {
+      let postData = postsData[index];
+      if (!postData) {
         console.error("no posts were found with set conditions.");
         continue;
       }
       if (contType == "image" || contType == "video") {
-        postData[0].url = supabaseUrl + contType + "/" + postData[0].id; //makes a readable url that will return
-        nextContentData.push(postData[0]);
+        postData.url = supabaseUrl + contType + "/" + postData.id; //makes a readable url that will return
+        nextContentData.push(postData);
+      } else if (contType == "text") {
+        nextContentData.push(postData);
       }
-      return nextContentData;
     }
+    return nextContentData;
   } else {
     //TODO: build other feeds
     return;
