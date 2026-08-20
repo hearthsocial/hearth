@@ -2,15 +2,21 @@ import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, ScrollView, Pressable } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
+import Octicons from "@expo/vector-icons/Octicons";
 export default function Wide() {
+  //general stats
   const [numNotifications, setNumNotifications] = useState(4);
-  const [numCreatorAlerts, setNumCreatorAlerts] = useState<number | boolean>(
-    false,
-  );
+  const [numConnections, setNumConnections] = useState<number>(3);
   const [numTags, setNumTags] = useState(8);
   const [numMessages, setNumMessages] = useState(9);
   const [numNewPosts, setNumNewPosts] = useState(3);
+  const [numInteractions,setNumInteractions] = useState(6)
   const [name, setName] = useState("");
+  //particular stats
+  const [numFollows,setNumFollows] = useState(2)//second card
+  const [numFromFriends,setFromFriends] = useState(4)//third card
+  const [numFromPinned,setFromPinned] = useState(6)//4rth card
+  const [numNewLikes,setNewLikes] = useState(4)//6th card
   const router = useRouter();
   useEffect(() => {
     const getData = async () => {
@@ -40,32 +46,86 @@ export default function Wide() {
       </View>
       <View style={styles.boxView}>
         <Pressable style={styles.box}>
+          <View style={styles.iconContainer}>
+           <Octicons
+          name="bell-fill"
+          size={28}
+          color={"black"}
+          style={styles.icon}
+        />
+        </View>
           <Text style={styles.boxHeader}>{numNotifications}</Text>
-          <Text style={styles.boxExplanation}>Notifications</Text>
+          <Text style={styles.boxExplanation}>Total Notifications</Text>
+          <Text style={styles.undertext}>Click to view details</Text>
         </Pressable>
         <Pressable style={styles.box}>
+          <View style={styles.iconContainer}>
+           <Octicons
+          name="person-add"
+          size={28}
+          color={"black"}
+          style={styles.icon}
+        />
+        </View>
           <Text style={styles.boxHeader}>
-            {numCreatorAlerts ? numCreatorAlerts : "N/A"}
+            {numConnections}
           </Text>
-          <Text style={styles.boxExplanation}>Creator Alerts</Text>
+          <Text style={styles.boxExplanation}>Social Notifications</Text>
+          <Text style={styles.undertext}>{numFollows} new follower{numFollows!==1?"s":""} - {numConnections-numFollows} friend request{numConnections-numFollows!==1?"s":""}</Text>
         </Pressable>
         <Pressable style={styles.box}>
+          <View style={styles.iconContainer}>
+           <Octicons
+          name="mention"
+          size={28}
+          color={"black"}
+          style={styles.icon}
+        />
+        </View>
           <Text style={styles.boxHeader}>{numTags}</Text>
-          <Text style={styles.boxExplanation}>New Tags</Text>
+          <Text style={styles.boxExplanation}>New Mentions</Text>
+          <Text style={styles.undertext}>{numFromFriends} from friend{numFromFriends!==1?"s":""}</Text>
         </Pressable>
         <Pressable style={styles.box}>
+          <View style={styles.iconContainer}>
+           <Octicons
+          name="unread"
+          size={28}
+          color={"black"}
+          style={styles.icon}
+        />
+        </View>
           <Text style={styles.boxHeader}>{numMessages}</Text>
           <Text style={styles.boxExplanation}>New Messages</Text>
+          <Text style={styles.undertext}>{numFromPinned} from pinned account{numFromPinned!==1?"s":""}</Text>
         </Pressable>
         <Pressable style={styles.box}>
+          <View style={styles.iconContainer}>
+           <Octicons
+          name="note"
+          size={28}
+          color={"black"}
+          style={styles.icon}
+        />
+        </View>
           <Text style={styles.boxHeader}>{numNewPosts}</Text>
           <Text style={styles.boxExplanation}>New Posts</Text>
+          <Text style={styles.undertext}>From people you follow</Text>
         </Pressable>
         <Pressable style={styles.box} >
-          <Text style={styles.boxHeader}>Coming soon</Text>
+         <View style={styles.iconContainer}>
+           <Octicons
+          name="comment-discussion"
+          size={28}
+          color={"black"}
+          style={styles.icon}
+        />
+        </View>
+          <Text style={styles.boxHeader}>{numInteractions}</Text>
           <Text style={styles.boxExplanation}>
-            
+            New Interactions
           </Text>
+          <Text style={styles.undertext}>{numNewLikes} new like{numNewLikes!==1?"s":""} - {numInteractions-numNewLikes} new comment{numInteractions-numNewLikes!==1?"s":""} </Text>
         </Pressable>
       </View>
     </ScrollView>
@@ -108,8 +168,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     borderRadius: 20,
     borderWidth: 2,
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
+    justifyContent:"flex-start",
     margin: 40,
     backgroundColor: "#f2ecdf",
     borderColor: "#717171",
@@ -125,4 +184,20 @@ const styles = StyleSheet.create({
     textAlign: "left",
     width: "70%",
   },
+  icon:{
+    opacity:0.85,
+  },
+  iconContainer:{
+    position:"absolute",
+    top:16,
+    right:16
+  },
+  undertext:{
+    fontSize: 16,
+    fontFamily: "Rubik_400Regular",
+    color:"#717171",
+    position:"relative",
+    top:10,
+    
+  }
 });
