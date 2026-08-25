@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, ScrollView, Pressable } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import Octicons from "@expo/vector-icons/Octicons";
+import HomeCard from "@/components/wide/HomeCard";
 export default function Wide() {
   //general stats
   const [numNotifications, setNumNotifications] = useState(4);
@@ -45,88 +46,12 @@ export default function Wide() {
         <Text style={styles.while}>While you were gone...</Text>
       </View>
       <View style={styles.boxView}>
-        <Pressable style={styles.box}>
-          <View style={styles.iconContainer}>
-           <Octicons
-          name="bell-fill"
-          size={28}
-          color={"black"}
-          style={styles.icon}
-        />
-        </View>
-          <Text style={styles.boxHeader}>{numNotifications}</Text>
-          <Text style={styles.boxExplanation}>Total Notifications</Text>
-          <Text style={styles.undertext}>Click to view details</Text>
-        </Pressable>
-        <Pressable style={styles.box}>
-          <View style={styles.iconContainer}>
-           <Octicons
-          name="person-add"
-          size={28}
-          color={"black"}
-          style={styles.icon}
-        />
-        </View>
-          <Text style={styles.boxHeader}>
-            {numConnections}
-          </Text>
-          <Text style={styles.boxExplanation}>Social Notifications</Text>
-          <Text style={styles.undertext}>{numFollows} new follower{numFollows!==1?"s":""} - {numConnections-numFollows} friend request{numConnections-numFollows!==1?"s":""}</Text>
-        </Pressable>
-        <Pressable style={styles.box}>
-          <View style={styles.iconContainer}>
-           <Octicons
-          name="mention"
-          size={28}
-          color={"black"}
-          style={styles.icon}
-        />
-        </View>
-          <Text style={styles.boxHeader}>{numTags}</Text>
-          <Text style={styles.boxExplanation}>New Mentions</Text>
-          <Text style={styles.undertext}>{numFromFriends} from friend{numFromFriends!==1?"s":""}</Text>
-        </Pressable>
-        <Pressable style={styles.box}>
-          <View style={styles.iconContainer}>
-           <Octicons
-          name="unread"
-          size={28}
-          color={"black"}
-          style={styles.icon}
-        />
-        </View>
-          <Text style={styles.boxHeader}>{numMessages}</Text>
-          <Text style={styles.boxExplanation}>New Messages</Text>
-          <Text style={styles.undertext}>{numFromPinned} from pinned account{numFromPinned!==1?"s":""}</Text>
-        </Pressable>
-        <Pressable style={styles.box}>
-          <View style={styles.iconContainer}>
-           <Octicons
-          name="note"
-          size={28}
-          color={"black"}
-          style={styles.icon}
-        />
-        </View>
-          <Text style={styles.boxHeader}>{numNewPosts}</Text>
-          <Text style={styles.boxExplanation}>New Posts</Text>
-          <Text style={styles.undertext}>From people you follow</Text>
-        </Pressable>
-        <Pressable style={styles.box} >
-         <View style={styles.iconContainer}>
-           <Octicons
-          name="comment-discussion"
-          size={28}
-          color={"black"}
-          style={styles.icon}
-        />
-        </View>
-          <Text style={styles.boxHeader}>{numInteractions}</Text>
-          <Text style={styles.boxExplanation}>
-            New Interactions
-          </Text>
-          <Text style={styles.undertext}>{numNewLikes} new like{numNewLikes!==1?"s":""} - {numInteractions-numNewLikes} new comment{numInteractions-numNewLikes!==1?"s":""} </Text>
-        </Pressable>
+        <HomeCard icon="bell-fill" header={numNotifications} explanation="Total Notifications" undertext={`Click to view details`}/>
+        <HomeCard icon="person-add" header={numConnections} explanation="Social Notifications" undertext={`${numFollows} new follower${numFollows!==1?"s":""} - ${numConnections-numFollows} friend request${numConnections-numFollows!==1?"s":""}`}/>
+        <HomeCard icon="mention" header={numTags} explanation="New Mentions" undertext={`${numFromFriends} from friend${numFromFriends!==1?"s":""}`}/>
+        <HomeCard icon="unread" header={numMessages} explanation="New Messages" undertext={`${numFromPinned} from pinned accounts`}/>
+        <HomeCard icon="note" header={numNewPosts} explanation="New Posts" undertext={`from people you follow`}/>
+         <HomeCard icon="comment-discussion" header={numInteractions} explanation="New Interactions" undertext={`${numNewLikes} new like${numNewLikes!==1?"s":""} - ${numInteractions-numNewLikes} new comment${numInteractions-numNewLikes!==1?"s":""}`}/>
       </View>
     </ScrollView>
   );
@@ -169,7 +94,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 2,
     justifyContent:"flex-start",
-    margin: 40,
+    gap:20,
     backgroundColor: "#f2ecdf",
     borderColor: "#717171",
   },
