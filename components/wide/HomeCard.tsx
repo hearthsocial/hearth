@@ -1,6 +1,7 @@
 import Octicons from "@expo/vector-icons/Octicons"
 import { Pressable, StyleSheet, View, Text } from "react-native"
 import { ComponentProps } from "react"
+import getWidth from "@/utils/getWidth"
 type OcticonNameType = ComponentProps<typeof Octicons>['name']
 type Props = {
     icon:OcticonNameType,
@@ -9,6 +10,7 @@ type Props = {
     undertext:string
 }
 export default function HomeCard({icon,header,explanation,undertext}:Props){
+    const width = getWidth()
     return(
     <Pressable style={styles.box}>
           <View style={styles.iconContainer}>
@@ -21,7 +23,7 @@ export default function HomeCard({icon,header,explanation,undertext}:Props){
         </View>
           <Text style={styles.boxHeader}>{header}</Text>
           <Text style={styles.boxExplanation}>{explanation}</Text>
-          <Text style={styles.undertext}>{undertext}</Text>
+          {width>=1425&&(<Text style={styles.undertext}>{undertext}</Text>)}
         </Pressable>)
 }
 const styles = StyleSheet.create({
