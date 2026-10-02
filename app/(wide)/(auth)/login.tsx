@@ -6,7 +6,7 @@ import { supabase } from "@/utils/supabase";
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import storage from "@/utils/storage";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,7 +37,8 @@ export default function Login() {
     if (!data || error || !data.user) {
       setError(simplifyError(error?.message));
     } else {
-      await AsyncStorage.setMany({ username: "Guest", id: data.user.id });
+      storage.set("username", "Guest");
+      storage.set("id",data.user.id)
       router.replace("/(wide)");
     }
   }

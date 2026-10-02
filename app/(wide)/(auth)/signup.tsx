@@ -4,7 +4,7 @@ import simplifyError from "@/utils/errorSimplifier";
 import isUsernameAvailable from "@/utils/isUsernameAvailable";
 import isValidEmail from "@/utils/isValidEmail";
 import { supabase } from "@/utils/supabase";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import storage from "@/utils/storage";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
@@ -42,7 +42,8 @@ export default function Signup() {
       setError(simplifyError(error?.message));
       return;
     }
-    await AsyncStorage.setMany({ username: "Guest", id: data.user.id });
+      storage.set("username", "Guest");
+      storage.set("id",data.user.id)
     router.replace("/(wide)");
   }
   async function createAccount() {
@@ -79,7 +80,8 @@ export default function Signup() {
     if (accError) {
       setError("Signup failed. Please try again later, or contact support.");
     }
-    await AsyncStorage.setMany({ username: username, id: userId });
+    storage.set("username", username);
+    storage.set("id",userId)
     router.replace("/(wide)");
   }
   return (

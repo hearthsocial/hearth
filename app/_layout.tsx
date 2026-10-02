@@ -11,7 +11,7 @@ import {
 } from "@expo-google-fonts/rubik";
 import * as SplashScreen from "expo-splash-screen";
 import setUserData from "@/utils/setUserData";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import storage from "@/utils/storage";
 import Ionicons from "@expo/vector-icons/Ionicons";
 export default function RootLayout() {
   const router = useRouter();
@@ -26,7 +26,7 @@ export default function RootLayout() {
     Rubik_500Medium,
   });
 
-  const [pfp, setPfp] = useState<string | null>("noprofile.jpg");
+  const [pfp, setPfp] = useState<string | undefined>("noprofile.jpg");
   useEffect(() => {
     const isWide = width >= 768;
     const handleRedirect = async () => {
@@ -42,7 +42,7 @@ export default function RootLayout() {
         targetPath = `/${targetRoot}/(auth)/login`;
       } else {
         await setUserData();
-      const pfplocal = await AsyncStorage.getItem("pfp");
+      const pfplocal = await storage.getString("pfp");
       setPfp(pfplocal);
       }
       const alreadyInCorrectRoot = currentRoot === targetRoot;

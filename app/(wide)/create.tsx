@@ -4,7 +4,9 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import Octicons from "@expo/vector-icons/Octicons";
 import getWidth from "@/utils/getWidth";
 import { supabase } from "@/utils/supabase";
-import  AsyncStorage  from "@react-native-async-storage/async-storage";
+import storage from "@/utils/storage";
+import { useRouter } from "expo-router";
+import Tooltip from "react-native-walkthrough-tooltip"
 export default function WideCreate() {
     const width = getWidth()
     const [selected,setSelected] = useState(1)
@@ -12,8 +14,8 @@ export default function WideCreate() {
     const [tags,setTags] = useState([])
     const [isPublic, setPublic] = useState(true)
     const postNote = async function(){
-        const id = await AsyncStorage.getItem("id")
-        await supabase.from("posts").insert({postedby:id,text:noteText,tags:tags,type:1,})
+        const id = storage.getString("id")
+        await supabase.from("posts").insert({postedby:id,text:noteText,tags:tags,type:1,public:isPublic}) 
     }
     return (
     <View style={styles.container}>
@@ -38,6 +40,10 @@ export default function WideCreate() {
         <Pressable style={styles.notesPost} onPress={()=>postNote()}><Text>Post</Text></Pressable>
         </View>
         </View>
+    )}{selected==2&&(
+            <Text style={styles.comingSoon}>Coming soon...</Text>
+    )}{selected==3&&(
+            <Text style={styles.comingSoon}>Coming soon...</Text>
     )}
         <Pressable style={styles.momentButton}>
             <Octicons color={"white"} name="sparkles-fill" size={width>=1225?30:60}/>
@@ -159,5 +165,11 @@ const styles = StyleSheet.create({
         borderRadius:30,
         color:"white",
         backgroundColor:"#eb6a02",
+    },
+    comingSoon:{
+        fontFamily:"Rubik_400Regular",
+        textAlign:"center",
+        margin:50,
+        fontSize:20
     }
 })

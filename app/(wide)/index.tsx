@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, ScrollView, Pressable } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import storage from "@/utils/storage";
+
 import { useRouter } from "expo-router";
 import Octicons from "@expo/vector-icons/Octicons";
 import HomeCard from "@/components/wide/HomeCard";
@@ -21,7 +22,7 @@ export default function Wide() {
   const router = useRouter();
   useEffect(() => {
     const getData = async () => {
-      let lname = await AsyncStorage.getItem("name");
+      let lname = await storage.getString("name");
       if (!lname) {
         console.error("No local name detected.");
         lname = "Guest";

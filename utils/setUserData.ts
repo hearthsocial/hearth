@@ -1,12 +1,13 @@
 import { supabase } from "./supabase";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import storage from "./storage"
 export default async function setUserData() {
-  const isGuest = (await AsyncStorage.getItem("username")) == "Guest";
-  const userDataExists = await AsyncStorage.getItem("created_at");
+  const isGuest = (await storage.getString("username")) == "Guest";
+  const userDataExists = await storage.getString("created_at");
   if (userDataExists) {
     return;
   } else if (isGuest) {
-    AsyncStorage.setMany({ isGuest: "yes", pfp: "noprofile.jpg" });
+    storage.set("isGuest", "yes");
+    storage.set("pfp", "noprofile.jpg")
     return;
   } else {
   
@@ -27,14 +28,12 @@ export default async function setUserData() {
       console.error(usererror || "error selecting user data.");
       return; //TODO: add error handling logic
     }
-    AsyncStorage.setMany({
-      created_at: userdata[0].created_at,
-      followersNum: userdata[0].followers,
-      pfp: userdata[0].pfp,
-      public: userdata[0].public,
-      username: userdata[0].username,
-      id: userdata[0].id,
-      name: userdata[0].name,
-    });
+      storage.set("created_at", userdata[0].created_at)
+      storage.set("followersNum", userdata[0].followers)
+      storage.set("pfp", userdata[0].pfp)
+      storage.set("public", userdata[0].public)
+      storage.set("username", userdata[0].username)
+      storage.set("id","userdata[0].id")
+      storage.set("name", userdata[0].name)
   }
 }
