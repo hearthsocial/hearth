@@ -1,7 +1,7 @@
-import { storage } from "./storage";
+import { algoStorage } from "./storage";
 export function getWeights() {
   return {
-    exploration: storage.getNumber("exploration"),
-    reiteration: storage.getNumber("reiteration"),
-  };
+    exploration: algoStorage.getNumber("exploration"),
+    reiteration: algoStorage.getNumber("reiteration"),
+  }
 }

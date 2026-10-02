@@ -1,4 +1,4 @@
-import { scoredTags } from "./types";
+import { scoredTags } from "@/utils/types";
 export function weightedRandomPick(tags: scoredTags, repeat: number) {
   let returnedTags: string[] = []; //tags to return later
   let totalScore = 0; //total number of points accross all tags
