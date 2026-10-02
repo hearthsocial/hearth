@@ -12,7 +12,7 @@ export default function Button({ text, type, onClick }: Props) {
       color = "#eb6a02";
       break;
     case 2:
-      color = "";
+      color = "#eb2606";
       break;
     case 3:
       color = "";
