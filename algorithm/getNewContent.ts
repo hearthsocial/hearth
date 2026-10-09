@@ -1,7 +1,7 @@
 import { supabase } from "@/utils/supabase";
 import "react-native-url-polyfill/auto";
 import { getPreferences } from "./preferences";
-import { getContentParams } from "./types";
+import { getContentParams } from "@/utils/types";
 import { weightedRandomPick } from "./weightedRandomPick";
 import { getWeights } from "./weights";
 
