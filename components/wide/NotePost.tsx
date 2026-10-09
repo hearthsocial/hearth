@@ -2,16 +2,14 @@ import { StyleSheet, View,Text, Image, Pressable} from "react-native";
 import {Base64Image} from "@/utils/types"
 import { useState } from "react";
 import Octicons from "@expo/vector-icons/Octicons";
-type Props = {
-    name:String,
-    text:String,
-    pfp:Base64Image
-}
-export default function NotePost({name,pfp,text}:Props){
+import roundInteractions from "@/utils/roundInteractionData";
+import { postProps } from "@/utils/types";
+export default function NotePost({name,pfp,text,bottomData}:postProps){
     const [liked,setLiked] = useState(false)
     const [reposted,setReposted] = useState(false)
     let [kept,setKept] = useState(false)
     let [isFollowing,setIsFollowing] = useState(false)
+    
     return (<View style={styles.post}>
         <View style={styles.innerPost}>
         <View style={styles.person}>
@@ -22,24 +20,24 @@ export default function NotePost({name,pfp,text}:Props){
         <Text style={styles.text}>{text}</Text>
         <View style={styles.bottomBar}>
         <Pressable style={styles.bottomItem} onPress={()=>setLiked(!liked)}>
-        <Octicons name={liked?"heart":"heart-fill"} size={20}/>
-        <Text style={{fontFamily:liked?"Rubik_400Regular":"Rubik_500Medium",
-        fontSize:16}}>{liked?"Like":"Liked"}</Text>
+        <Octicons name={liked?"heart-fill":"heart"} size={20}/>
+        <Text style={{fontFamily:liked?"Rubik_500Medium":"Rubik_400Regular",
+        fontSize:16}}>{liked?bottomData.likes[1]:bottomData.likes[0]}</Text>
         </Pressable>  
         <Pressable style={styles.bottomItem} onPress={()=>{/**reply function */}}>
         <Octicons name={"reply"} size={20}/>
         <Text style={{fontFamily:"Rubik_400Regular",
-        fontSize:16}}>Reply</Text>
+        fontSize:16}}>{bottomData.replies[0]}</Text>
         </Pressable> 
          <Pressable style={styles.bottomItem} onPress={()=>setReposted(!reposted)}>
         <Octicons name={"sync"} size={20}/>
         <Text style={{fontFamily:reposted?"Rubik_500Medium":"Rubik_400Regular",
-        fontSize:16}}>{reposted?"Reposted":"Repost"}</Text>
+        fontSize:16}}>{reposted?bottomData.reposts[1]:bottomData.reposts[0]}</Text>
         </Pressable>
         <Pressable style={styles.bottomItem} onPress={()=>setKept(!kept)}>
         <Octicons name={kept?"bookmark-filled":"bookmark"} size={20}/>
         <Text style={{fontFamily:kept?"Rubik_500Medium":"Rubik_400Regular",
-        fontSize:16}}>{kept?"Kept":"Keep"}</Text>
+        fontSize:16}}>{kept?bottomData.saves[1]:bottomData.saves[0]}</Text>
         </Pressable>  
         </View>
         </View>
