@@ -1,14 +1,34 @@
 import { StyleSheet, View,Text, Image, Pressable} from "react-native";
 import {Base64Image} from "@/utils/types"
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Octicons from "@expo/vector-icons/Octicons";
 import roundInteractions from "@/utils/roundInteractionData";
 import { postProps } from "@/utils/types";
-export default function NotePost({name,pfp,text,bottomData}:postProps){
+import uploadInteraction from "@/utils/uploadInteraction";
+export default function NotePost({name,pfp,text,bottomData,id}:postProps){
     const [liked,setLiked] = useState(false)
     const [reposted,setReposted] = useState(false)
     let [kept,setKept] = useState(false)
     let [isFollowing,setIsFollowing] = useState(false)
+    let firstMount = useRef(true)
+    let likeTimeout = useRef<ReturnType<typeof setTimeout>|null>(null)
+    useEffect(()=>{
+    if(firstMount.current){
+        return;
+    }
+    if(likeTimeout.current)clearTimeout(likeTimeout.current)
+    likeTimeout.current = setTimeout(()=>uploadInteraction("like",id,liked),3000)
+    
+    },[liked])
+    let repostTimeout = useRef<ReturnType<typeof setTimeout>|null>(null)
+    useEffect(()=>{
+    if(firstMount.current){
+        firstMount.current = false;
+        return;
+    }
+    if(repostTimeout.current)clearTimeout(repostTimeout.current)
+    repostTimeout.current = setTimeout(()=>uploadInteraction("repost",id,reposted),3000)
+    },[reposted])
     
     return (<View style={styles.post}>
         <View style={styles.innerPost}>

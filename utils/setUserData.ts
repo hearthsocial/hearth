@@ -33,7 +33,7 @@ export default async function setUserData() {
       storage.set("pfp", userdata[0].pfp)
       storage.set("public", userdata[0].public)
       storage.set("username", userdata[0].username)
-      storage.set("id","userdata[0].id")
+      storage.set("id",`${userdata[0].id}`)
       storage.set("name", userdata[0].name)
   }
 }

@@ -25,6 +25,7 @@ export type getContentParams =
         reposts:interactionAbrv[],
         saves:interactionAbrv[],
     },
+    id:string
     views:interactionAbrv[],
 }
 

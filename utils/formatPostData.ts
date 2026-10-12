@@ -24,6 +24,7 @@ export default function formatPostData(postData:unformattedData[]){
             replies:[roundInteractions(0),roundInteractions(0+1)],
             saves:[roundInteractions(0),roundInteractions(0+1)],
         },
+        id:value.id,
         views:[roundInteractions(0+1)]
     })
     runningList.push(value.id)
