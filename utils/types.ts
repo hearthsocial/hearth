@@ -16,9 +16,9 @@ export type getContentParams =
   | { feed: "mix"; type: contentType; mixFeed?: feedType[]; mixType?: never }
   | { feed: feedType; type: contentType; mixFeed?: never; mixType?: never };
   export type postProps = {
-    name:String,
-    text:String,
-    pfp:Base64Image,
+    name:string,
+    text:string,
+    pfp:string,
     bottomData:{
         likes:interactionAbrv[],
         replies:interactionAbrv[],
@@ -27,5 +27,6 @@ export type getContentParams =
     },
     id:string
     views:interactionAbrv[],
+    followers:number,
 }
 
