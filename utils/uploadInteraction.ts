@@ -1,10 +1,10 @@
+import { useRef } from "react";
 import storage from "./storage";
 import { supabase } from "./supabase";
-export default async function uploadInteraction(interactionType:"like"|"repost",postId:string,value:boolean){
+export default async function uploadInteraction(interactionType:"like"|"repost",postId:string,value:boolean,updateRef:React.RefObject<boolean>){
 let id = await storage.getString("id")
-console.log(value)
+updateRef.current=value;
 if(value==true){
-console.log(value)
 const {error} = await supabase.from(`${interactionType}s`).insert({user_id:id,post_id:postId})
 if(error) console.log(error||"Error when uploading interaction.")
 }

@@ -11,13 +11,18 @@ export default function NotePost({name,pfp,text,bottomData,id}:postProps){
     let [kept,setKept] = useState(false)
     let [isFollowing,setIsFollowing] = useState(false)
     let firstMount = useRef(true)
+    let lastLikedValue = useRef(false)
+    let lastRepostedValue = useRef(false)
     let likeTimeout = useRef<ReturnType<typeof setTimeout>|null>(null)
     useEffect(()=>{
     if(firstMount.current){
         return;
     }
     if(likeTimeout.current)clearTimeout(likeTimeout.current)
-    likeTimeout.current = setTimeout(()=>uploadInteraction("like",id,liked),3000)
+    if(lastLikedValue.current==liked){
+        return;
+    }
+    likeTimeout.current = setTimeout(()=>uploadInteraction("like",id,liked,lastLikedValue),2000)
     
     },[liked])
     let repostTimeout = useRef<ReturnType<typeof setTimeout>|null>(null)
@@ -26,8 +31,11 @@ export default function NotePost({name,pfp,text,bottomData,id}:postProps){
         firstMount.current = false;
         return;
     }
-    if(repostTimeout.current)clearTimeout(repostTimeout.current)
-    repostTimeout.current = setTimeout(()=>uploadInteraction("repost",id,reposted),3000)
+    if(repostTimeout.current)clearTimeout(likeTimeout.current)
+    if(lastRepostedValue.current==reposted){
+        return;
+    }
+    repostTimeout.current = setTimeout(()=>uploadInteraction("repost",id,reposted,lastRepostedValue),2000)
     },[reposted])
     
     return (<View style={styles.post}>

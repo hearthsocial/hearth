@@ -12,6 +12,8 @@ post_id:string,
 name:string,
 pfp:string,
 followers:number,
+user_liked:boolean,
+user_reposted:boolean
 }
 //TODO: get rpc to do a join in the cloud to get pfp and name
 export default function formatPostData(postData:unformattedData[]){
@@ -24,7 +26,7 @@ export default function formatPostData(postData:unformattedData[]){
         text:value.text,
         bottomData:{
             likes:[roundInteractions(value.likes),roundInteractions(value.likes+1)],
-            reposts:[roundInteractions(value.reposts),roundInteractions(value.likes+1)],
+            reposts:[roundInteractions(value.reposts),roundInteractions(value.reposts+1)],
             replies:[roundInteractions(0),roundInteractions(0+1)],
             saves:[roundInteractions(0),roundInteractions(0+1)],
         },
