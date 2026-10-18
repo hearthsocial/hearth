@@ -39,6 +39,7 @@ export default function WideImages() {
           </Text>
         </Pressable>
       </View>
+      <Text style={styles.comingSoon}>Coming soon.</Text>
       <ScrollView contentContainerStyle={{}}></ScrollView>
     </View>
   );
@@ -66,4 +67,9 @@ const styles = StyleSheet.create({
     color: "black",
     fontFamily: "Rubik_500Medium",
   },
+  comingSoon:{
+  margin:30,
+  fontFamily:"Rubik_400Regular",
+  fontSize:30
+  }
 });
