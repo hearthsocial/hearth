@@ -5,14 +5,14 @@ import Octicons from "@expo/vector-icons/Octicons";
 import roundInteractions from "@/utils/roundInteractionData";
 import { postProps } from "@/utils/types";
 import uploadInteraction from "@/utils/uploadInteraction";
-export default function NotePost({name,pfp,text,bottomData,id}:postProps){
-    const [liked,setLiked] = useState(false)
-    const [reposted,setReposted] = useState(false)
+export default function NotePost({name,pfp,text,bottomData,id,userLiked,userReposted}:postProps){
+    const [liked,setLiked] = useState(userLiked??false)
+    const [reposted,setReposted] = useState(userReposted??false)
     let [kept,setKept] = useState(false)
     let [isFollowing,setIsFollowing] = useState(false)
     let firstMount = useRef(true)
-    let lastLikedValue = useRef(false)
-    let lastRepostedValue = useRef(false)
+    let lastLikedValue = useRef(userReposted??false)
+    let lastRepostedValue = useRef(userReposted??false)
     let likeTimeout = useRef<ReturnType<typeof setTimeout>|null>(null)
     useEffect(()=>{
     if(firstMount.current){

@@ -54,7 +54,7 @@ export async function getNewContent({
       { tags: nextTags, type: feedTypeList },
     );
     if (postsError) {
-      console.log("error getting posts' data.");
+      console.error("error getting posts' data.");
       return [];
     }
     for (const [index] of nextTags.entries()) {

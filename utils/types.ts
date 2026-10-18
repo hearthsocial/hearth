@@ -28,5 +28,7 @@ export type getContentParams =
     id:string
     views:interactionAbrv[],
     followers:number,
+    userLiked:boolean,
+    userReposted:boolean
 }
 

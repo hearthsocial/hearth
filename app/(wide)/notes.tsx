@@ -57,7 +57,7 @@ export default function WideText() {
       
       <ScrollView style={{alignSelf:"stretch",flex:1}} showsVerticalScrollIndicator={false} contentContainerStyle={{width:"100%",alignItems:'center',gap:30,margin:20}}>
         {formattedData?.map((post,index)=>(<NotePost name={post.name}
-        text={post.text} pfp={post.pfp} bottomData={post.bottomData} views={post.views} key={`post#${+postsSeen-(20-index)}`} id={post.id} followers={post.followers}/>))}
+        text={post.text} pfp={post.pfp} bottomData={post.bottomData} views={post.views} key={`post#${+postsSeen-(20-index)}`} id={post.id} followers={post.followers} userLiked={post.userLiked} userReposted={post.userReposted}/>))}
       </ScrollView>
       
     </View>

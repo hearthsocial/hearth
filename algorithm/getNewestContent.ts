@@ -2,7 +2,6 @@
 import { supabase } from "@/utils/supabase"
 export default async function getNewestContent(){
     let {data,error} = await supabase.rpc("get_newest_content",{})
-    console.log(data)
     if(error) return []
     return data??[];
 } 
