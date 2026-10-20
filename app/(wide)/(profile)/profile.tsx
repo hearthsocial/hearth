@@ -1,3 +1,1 @@
-export default function WideProfile() {
-
-}
+export default function WideProfile() {}

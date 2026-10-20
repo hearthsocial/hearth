@@ -1,6 +1,13 @@
 import { RelativePathString, Stack, useRouter, useSegments } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, Pressable, useWindowDimensions, View, Text, StyleSheet} from "react-native";
+import {
+  Image,
+  Pressable,
+  useWindowDimensions,
+  View,
+  Text,
+  StyleSheet,
+} from "react-native";
 import { supabase } from "@/utils/supabase";
 import isSignedIn from "@/utils/isSignedIn";
 import {
@@ -22,7 +29,7 @@ export default function RootLayout() {
   //@ts-ignore
   const isInAuth = segments.includes("(auth)");
   const [loading, setLoading] = useState(true);
-  const [profileTabOpen,setTabOpen] = useState(false)
+  const [profileTabOpen, setTabOpen] = useState(false);
   const [fontsLoaded, error] = useFonts({
     Rubik_400Regular,
     Rubik_600SemiBold,
@@ -32,12 +39,12 @@ export default function RootLayout() {
   const [pfp, setPfp] = useState<string | undefined>("noprofile.jpg");
   useEffect(() => {
     const isWide = width >= 768;
-    setTabOpen(false)
-    const handleRedirect = async ()=>{
+    setTabOpen(false);
+    const handleRedirect = async () => {
       const targetRoot = isWide ? "(wide)" : "(mobile)";
 
       const signedIn = await isSignedIn();
-    
+
       const currentRoot = segments[0];
 
       let targetPath = `/${targetRoot}`;
@@ -46,8 +53,8 @@ export default function RootLayout() {
         targetPath = `/${targetRoot}/(auth)/login`;
       } else {
         await setUserData();
-      const pfplocal = await storage.getString("pfp");
-      setPfp(pfplocal);
+        const pfplocal = await storage.getString("pfp");
+        setPfp(pfplocal);
       }
       const alreadyInCorrectRoot = currentRoot === targetRoot;
 
@@ -61,7 +68,7 @@ export default function RootLayout() {
           router.replace(targetPath);
         }
 
-        if (signedIn && isInAuth && segments[2]!=="logout") {
+        if (signedIn && isInAuth && segments[2] !== "logout") {
           router.replace(`/${targetRoot}`);
         }
       }
@@ -82,28 +89,73 @@ export default function RootLayout() {
         headerShown: !isInAuth,
         headerLeft: () => (
           <View>
-          <Pressable style={{ borderRadius: 60, width: 40, marginLeft: 20 }} onPress={()=>profileTabOpen?router.replace("/(wide)/(profile)/profile"):setTabOpen(true)}>
-            <Image
-              source={{
-                uri: `https://irluagoptkeyvfwoqtto.supabase.co/storage/v1/object/public/pfp/${pfp}`,
-              }}
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 20,
-                borderWidth: 2,
-                borderColor: "#eb6a02",
-              }}
-            ></Image>
-          </Pressable>
-          {profileTabOpen&&(
-            <View style={{backgroundColor:"#f2f2f2",width:200,height:400,position:"absolute",marginTop:50,marginLeft:5,borderRadius:20,borderWidth:1, borderColor:"#717171",boxShadow: '1px 4px 8px rgba(0, 0, 0, 0.18)',gap:20,}}>
-              <ProfileOption name={"Profile"} icon={"person"}redirectTo={"/(wide)/(profile)/profile"} isFirst/>
-              <ProfileOption name={"Settings"} icon={"gear"}redirectTo={"/(wide)/(profile)/profile"}/>
-              <ProfileOption name={"Customize"} icon={"paintbrush"}redirectTo={"/(wide)/(profile)/profile"}/>
-              <ProfileOption name={"Get Blaze"} icon={"flame"}redirectTo={"/(wide)/(profile)/profile"} isBold/>
-              <ProfileOption name={"Log out"} icon={"sign-out"}redirectTo={"/(wide)/(auth)/logout"} isPowerful/>
-          </View>)}
+            <Pressable
+              style={{ borderRadius: 60, width: 40, marginLeft: 20 }}
+              onPress={() =>
+                profileTabOpen
+                  ? router.replace("/(wide)/(profile)/profile")
+                  : setTabOpen(true)
+              }
+            >
+              <Image
+                source={{
+                  uri: `https://irluagoptkeyvfwoqtto.supabase.co/storage/v1/object/public/pfp/${pfp}`,
+                }}
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 20,
+                  borderWidth: 2,
+                  borderColor: "#eb6a02",
+                }}
+              ></Image>
+            </Pressable>
+            {profileTabOpen && (
+              <View
+                style={{
+                  backgroundColor: "#f2f2f2",
+                  width: 200,
+                  height: 400,
+                  position: "absolute",
+                  marginTop: 50,
+                  marginLeft: 5,
+                  borderRadius: 20,
+                  borderWidth: 1,
+                  borderColor: "#717171",
+                  boxShadow: "1px 4px 8px rgba(0, 0, 0, 0.18)",
+                  gap: 20,
+                }}
+              >
+                <ProfileOption
+                  name={"Profile"}
+                  icon={"person"}
+                  redirectTo={"/(wide)/(profile)/profile"}
+                  isFirst
+                />
+                <ProfileOption
+                  name={"Settings"}
+                  icon={"gear"}
+                  redirectTo={"/(wide)/(profile)/profile"}
+                />
+                <ProfileOption
+                  name={"Customize"}
+                  icon={"paintbrush"}
+                  redirectTo={"/(wide)/(profile)/profile"}
+                />
+                <ProfileOption
+                  name={"Get Blaze"}
+                  icon={"flame"}
+                  redirectTo={"/(wide)/(profile)/profile"}
+                  isBold
+                />
+                <ProfileOption
+                  name={"Log out"}
+                  icon={"sign-out"}
+                  redirectTo={"/(wide)/(auth)/logout"}
+                  isPowerful
+                />
+              </View>
+            )}
           </View>
         ),
         headerRight: () => (
@@ -115,4 +167,3 @@ export default function RootLayout() {
     />
   );
 }
-

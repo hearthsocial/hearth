@@ -1,132 +1,188 @@
-import { StyleSheet, View,Text, Image, Pressable} from "react-native";
-import {Base64Image} from "@/utils/types"
+import { StyleSheet, View, Text, Image, Pressable } from "react-native";
+import { Base64Image } from "@/utils/types";
 import { useEffect, useRef, useState } from "react";
 import Octicons from "@expo/vector-icons/Octicons";
 import roundInteractions from "@/utils/roundInteractionData";
 import { postProps } from "@/utils/types";
 import uploadInteraction from "@/utils/uploadInteraction";
-export default function NotePost({name,pfp,text,bottomData,id,userLiked,userReposted}:postProps){
-    const [liked,setLiked] = useState(userLiked??false)
-    const [reposted,setReposted] = useState(userReposted??false)
-    let [kept,setKept] = useState(false)
-    let [isFollowing,setIsFollowing] = useState(false)
-    let firstMount = useRef(true)
-    let lastLikedValue = useRef(userReposted??false)
-    let lastRepostedValue = useRef(userReposted??false)
-    let likeTimeout = useRef<ReturnType<typeof setTimeout>|null>(null)
-    useEffect(()=>{
-    if(firstMount.current){
-        return;
+export default function NotePost({
+  name,
+  pfp,
+  text,
+  bottomData,
+  id,
+  userLiked,
+  userReposted,
+}: postProps) {
+  const [liked, setLiked] = useState(userLiked ?? false);
+  const [reposted, setReposted] = useState(userReposted ?? false);
+  let [kept, setKept] = useState(false);
+  let [isFollowing, setIsFollowing] = useState(false);
+  let firstMount = useRef(true);
+  let lastLikedValue = useRef(userReposted ?? false);
+  let lastRepostedValue = useRef(userReposted ?? false);
+  let likeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (firstMount.current) {
+      return;
     }
-    if(likeTimeout.current)clearTimeout(likeTimeout.current)
-    if(lastLikedValue.current==liked){
-        return;
+    if (likeTimeout.current) clearTimeout(likeTimeout.current);
+    if (lastLikedValue.current == liked) {
+      return;
     }
-    likeTimeout.current = setTimeout(()=>uploadInteraction("like",id,liked,lastLikedValue),2000)
-    
-    },[liked])
-    let repostTimeout = useRef<ReturnType<typeof setTimeout>|null>(null)
-    useEffect(()=>{
-    if(firstMount.current){
-        firstMount.current = false;
-        return;
+    likeTimeout.current = setTimeout(
+      () => uploadInteraction("like", id, liked, lastLikedValue),
+      2000,
+    );
+  }, [liked]);
+  let repostTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (firstMount.current) {
+      firstMount.current = false;
+      return;
     }
-    if(repostTimeout.current)clearTimeout(likeTimeout.current)
-    if(lastRepostedValue.current==reposted){
-        return;
+    if (repostTimeout.current) clearTimeout(likeTimeout.current);
+    if (lastRepostedValue.current == reposted) {
+      return;
     }
-    repostTimeout.current = setTimeout(()=>uploadInteraction("repost",id,reposted,lastRepostedValue),2000)
-    },[reposted])
-    
-    return (<View style={styles.post}>
-        <View style={styles.innerPost}>
+    repostTimeout.current = setTimeout(
+      () => uploadInteraction("repost", id, reposted, lastRepostedValue),
+      2000,
+    );
+  }, [reposted]);
+
+  return (
+    <View style={styles.post}>
+      <View style={styles.innerPost}>
         <View style={styles.person}>
-        <Image source={{uri:pfp}} style={styles.pfp}/>
-        <Text style={styles.name}>{name}</Text>
-        <Pressable style={styles.follow} onPress={()=>setIsFollowing(!isFollowing)}><View style={{alignItems:"center"}}><Text style={{fontFamily:"Rubik_500Medium",fontSize:16,color:"white"}}>{isFollowing?"Followed":"Follow"}</Text></View></Pressable>
+          <Image source={{ uri: pfp }} style={styles.pfp} />
+          <Text style={styles.name}>{name}</Text>
+          <Pressable
+            style={styles.follow}
+            onPress={() => setIsFollowing(!isFollowing)}
+          >
+            <View style={{ alignItems: "center" }}>
+              <Text
+                style={{
+                  fontFamily: "Rubik_500Medium",
+                  fontSize: 16,
+                  color: "white",
+                }}
+              >
+                {isFollowing ? "Followed" : "Follow"}
+              </Text>
+            </View>
+          </Pressable>
         </View>
         <Text style={styles.text}>{text}</Text>
         <View style={styles.bottomBar}>
-        <Pressable style={styles.bottomItem} onPress={()=>setLiked(!liked)}>
-        <Octicons name={liked?"heart-fill":"heart"} size={20}/>
-        <Text style={{fontFamily:liked?"Rubik_500Medium":"Rubik_400Regular",
-        fontSize:16}}>{liked?bottomData.likes[1]:bottomData.likes[0]}</Text>
-        </Pressable>  
-        <Pressable style={styles.bottomItem} onPress={()=>{/**reply function */}}>
-        <Octicons name={"reply"} size={20}/>
-        <Text style={{fontFamily:"Rubik_400Regular",
-        fontSize:16}}>{bottomData.replies[0]}</Text>
-        </Pressable> 
-         <Pressable style={styles.bottomItem} onPress={()=>setReposted(!reposted)}>
-        <Octicons name={"sync"} size={20}/>
-        <Text style={{fontFamily:reposted?"Rubik_500Medium":"Rubik_400Regular",
-        fontSize:16}}>{reposted?bottomData.reposts[1]:bottomData.reposts[0]}</Text>
-        </Pressable>
-        <Pressable style={styles.bottomItem} onPress={()=>setKept(!kept)}>
-        <Octicons name={kept?"bookmark-filled":"bookmark"} size={20}/>
-        <Text style={{fontFamily:kept?"Rubik_500Medium":"Rubik_400Regular",
-        fontSize:16}}>{kept?bottomData.saves[1]:bottomData.saves[0]}</Text>
-        </Pressable>  
+          <Pressable style={styles.bottomItem} onPress={() => setLiked(!liked)}>
+            <Octicons name={liked ? "heart-fill" : "heart"} size={20} />
+            <Text
+              style={{
+                fontFamily: liked ? "Rubik_500Medium" : "Rubik_400Regular",
+                fontSize: 16,
+              }}
+            >
+              {liked ? bottomData.likes[1] : bottomData.likes[0]}
+            </Text>
+          </Pressable>
+          <Pressable
+            style={styles.bottomItem}
+            onPress={() => {
+              /**reply function */
+            }}
+          >
+            <Octicons name={"reply"} size={20} />
+            <Text style={{ fontFamily: "Rubik_400Regular", fontSize: 16 }}>
+              {bottomData.replies[0]}
+            </Text>
+          </Pressable>
+          <Pressable
+            style={styles.bottomItem}
+            onPress={() => setReposted(!reposted)}
+          >
+            <Octicons name={"sync"} size={20} />
+            <Text
+              style={{
+                fontFamily: reposted ? "Rubik_500Medium" : "Rubik_400Regular",
+                fontSize: 16,
+              }}
+            >
+              {reposted ? bottomData.reposts[1] : bottomData.reposts[0]}
+            </Text>
+          </Pressable>
+          <Pressable style={styles.bottomItem} onPress={() => setKept(!kept)}>
+            <Octicons name={kept ? "bookmark-filled" : "bookmark"} size={20} />
+            <Text
+              style={{
+                fontFamily: kept ? "Rubik_500Medium" : "Rubik_400Regular",
+                fontSize: 16,
+              }}
+            >
+              {kept ? bottomData.saves[1] : bottomData.saves[0]}
+            </Text>
+          </Pressable>
         </View>
-        </View>
+      </View>
     </View>
-    )
+  );
 }
 const styles = StyleSheet.create({
-    post:{
-       width:"65%",
-       borderWidth:1,
-        backgroundColor:"#f2ecdf",
-        borderRadius:30
-    },
-    innerPost:{
-        margin:20
-    },
-    pfp:{
-        width:40,
-        height:40,
-        borderRadius:50
-    },
-    person:{
-        flexDirection:"row",
-        alignItems:"center",
-        marginBottom:20
-    },
-    name:{
-        fontFamily:"Rubik_500Medium",
-        fontSize:20,
-        marginLeft:10
-    },
-    text:{
-        fontFamily:"Rubik_400Regular",
-        fontSize:18,
-        flexWrap:"wrap",
-    },
-    bottomBar:{
-    gap:20,
-    flexDirection:"row"
-    },
-    bottomItem:{
-        flexDirection:"row",
-        alignItems:"center",
-        marginTop:10,
-        gap:10,
-        borderWidth:1,
-        alignSelf:"flex-start",
-        padding:10,
-        paddingHorizontal:20,
-        borderRadius:15,
-        boxShadow: '1px 4px 8px rgba(0, 0, 0, 0.18)'
-    },
-    bottomText:{
-        fontFamily:"Rubik_400Regular",
-        fontSize:16
-    },
-    follow:{
-    marginHorizontal:10,
-    borderWidth:1,
-    padding:4,
-    borderRadius:5,
-    backgroundColor:"black"
-    }
-})
+  post: {
+    width: "65%",
+    borderWidth: 1,
+    backgroundColor: "#f2ecdf",
+    borderRadius: 30,
+  },
+  innerPost: {
+    margin: 20,
+  },
+  pfp: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+  },
+  person: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  name: {
+    fontFamily: "Rubik_500Medium",
+    fontSize: 20,
+    marginLeft: 10,
+  },
+  text: {
+    fontFamily: "Rubik_400Regular",
+    fontSize: 18,
+    flexWrap: "wrap",
+  },
+  bottomBar: {
+    gap: 20,
+    flexDirection: "row",
+  },
+  bottomItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+    gap: 10,
+    borderWidth: 1,
+    alignSelf: "flex-start",
+    padding: 10,
+    paddingHorizontal: 20,
+    borderRadius: 15,
+    boxShadow: "1px 4px 8px rgba(0, 0, 0, 0.18)",
+  },
+  bottomText: {
+    fontFamily: "Rubik_400Regular",
+    fontSize: 16,
+  },
+  follow: {
+    marginHorizontal: 10,
+    borderWidth: 1,
+    padding: 4,
+    borderRadius: 5,
+    backgroundColor: "black",
+  },
+});

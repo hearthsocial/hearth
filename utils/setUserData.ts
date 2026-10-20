@@ -1,5 +1,5 @@
 import { supabase } from "./supabase";
-import storage from "./storage"
+import storage from "./storage";
 export default async function setUserData() {
   const isGuest = (await storage.getString("username")) == "Guest";
   const userDataExists = await storage.getString("created_at");
@@ -7,10 +7,9 @@ export default async function setUserData() {
     return;
   } else if (isGuest) {
     storage.set("isGuest", "yes");
-    storage.set("pfp", "noprofile.jpg")
+    storage.set("pfp", "noprofile.jpg");
     return;
   } else {
-  
     const {
       data: { user },
       error,
@@ -28,12 +27,12 @@ export default async function setUserData() {
       console.error(usererror || "error selecting user data.");
       return; //TODO: add error handling logic
     }
-      storage.set("created_at", userdata[0].created_at)
-      storage.set("followersNum", userdata[0].followers)
-      storage.set("pfp", userdata[0].pfp)
-      storage.set("public", userdata[0].public)
-      storage.set("username", userdata[0].username)
-      storage.set("id",`${userdata[0].id}`)
-      storage.set("name", userdata[0].name)
+    storage.set("created_at", userdata[0].created_at);
+    storage.set("followersNum", userdata[0].followers);
+    storage.set("pfp", userdata[0].pfp);
+    storage.set("public", userdata[0].public);
+    storage.set("username", userdata[0].username);
+    storage.set("id", `${userdata[0].id}`);
+    storage.set("name", userdata[0].name);
   }
 }

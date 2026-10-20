@@ -42,8 +42,8 @@ export default function Signup() {
       setError(simplifyError(error?.message));
       return;
     }
-      storage.set("username", "Guest");
-      storage.set("id",data.user.id)
+    storage.set("username", "Guest");
+    storage.set("id", data.user.id);
     router.replace("/(wide)");
   }
   async function createAccount() {
@@ -81,7 +81,7 @@ export default function Signup() {
       setError("Signup failed. Please try again later, or contact support.");
     }
     storage.set("username", username);
-    storage.set("id",userId)
+    storage.set("id", userId);
     router.replace("/(wide)");
   }
   return (

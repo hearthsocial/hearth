@@ -38,7 +38,7 @@ export default function Login() {
       setError(simplifyError(error?.message));
     } else {
       storage.set("username", "Guest");
-      storage.set("id",data.user.id)
+      storage.set("id", data.user.id);
       router.replace("/(wide)");
     }
   }

@@ -9,7 +9,7 @@ if (!config.resolver.assetExts.includes("wasm")) {
 }
 
 config.resolver.sourceExts = config.resolver.sourceExts.filter(
-  (ext) => ext !== "wasm"
+  (ext) => ext !== "wasm",
 );
 
 module.exports = config;

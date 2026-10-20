@@ -8,8 +8,11 @@ export default function Sidebar() {
     if (tab == "home") {
       return segments.length <= 1 || segments[1] == undefined;
     }
-    if((tab=="clips"||tab=="notes"||tab=="shots")&&segments[1]=="mix"){
-      return true
+    if (
+      (tab == "clips" || tab == "notes" || tab == "shots") &&
+      segments[1] == "mix"
+    ) {
+      return true;
     }
     return segments[1] == tab;
   }

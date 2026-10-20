@@ -67,9 +67,9 @@ const styles = StyleSheet.create({
     color: "black",
     fontFamily: "Rubik_500Medium",
   },
-  comingSoon:{
-  margin:30,
-  fontFamily:"Rubik_400Regular",
-  fontSize:30
-  }
+  comingSoon: {
+    margin: 30,
+    fontFamily: "Rubik_400Regular",
+    fontSize: 30,
+  },
 });

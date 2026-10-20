@@ -12,13 +12,13 @@ export default function Wide() {
   const [numTags, setNumTags] = useState(8);
   const [numMessages, setNumMessages] = useState(9);
   const [numNewPosts, setNumNewPosts] = useState(3);
-  const [numInteractions,setNumInteractions] = useState(6)
+  const [numInteractions, setNumInteractions] = useState(6);
   const [name, setName] = useState("");
   //particular stats
-  const [numFollows,setNumFollows] = useState(2)//second card
-  const [numFromFriends,setFromFriends] = useState(4)//third card
-  const [numFromPinned,setFromPinned] = useState(6)//4rth card
-  const [numNewLikes,setNewLikes] = useState(4)//6th card
+  const [numFollows, setNumFollows] = useState(2); //second card
+  const [numFromFriends, setFromFriends] = useState(4); //third card
+  const [numFromPinned, setFromPinned] = useState(6); //4rth card
+  const [numNewLikes, setNewLikes] = useState(4); //6th card
   const router = useRouter();
   useEffect(() => {
     const getData = async () => {
@@ -47,12 +47,42 @@ export default function Wide() {
         <Text style={styles.while}>While you were gone...</Text>
       </View>
       <View style={styles.boxView}>
-        <HomeCard icon="bell-fill" header={numNotifications} explanation="Total Notifications" undertext={`Click to view details`}/>
-        <HomeCard icon="person-add" header={numConnections} explanation="Social Notifications" undertext={`${numFollows} new follower${numFollows!==1?"s":""} - ${numConnections-numFollows} friend request${numConnections-numFollows!==1?"s":""}`}/>
-        <HomeCard icon="mention" header={numTags} explanation="New Mentions" undertext={`${numFromFriends} from friend${numFromFriends!==1?"s":""}`}/>
-        <HomeCard icon="unread" header={numMessages} explanation="New Messages" undertext={`${numFromPinned} from pinned accounts`}/>
-        <HomeCard icon="note" header={numNewPosts} explanation="New Posts" undertext={`from people you follow`}/>
-         <HomeCard icon="comment-discussion" header={numInteractions} explanation="New Interactions" undertext={`${numNewLikes} new like${numNewLikes!==1?"s":""} - ${numInteractions-numNewLikes} new comment${numInteractions-numNewLikes!==1?"s":""}`}/>
+        <HomeCard
+          icon="bell-fill"
+          header={numNotifications}
+          explanation="Total Notifications"
+          undertext={`Click to view details`}
+        />
+        <HomeCard
+          icon="person-add"
+          header={numConnections}
+          explanation="Social Notifications"
+          undertext={`${numFollows} new follower${numFollows !== 1 ? "s" : ""} - ${numConnections - numFollows} friend request${numConnections - numFollows !== 1 ? "s" : ""}`}
+        />
+        <HomeCard
+          icon="mention"
+          header={numTags}
+          explanation="New Mentions"
+          undertext={`${numFromFriends} from friend${numFromFriends !== 1 ? "s" : ""}`}
+        />
+        <HomeCard
+          icon="unread"
+          header={numMessages}
+          explanation="New Messages"
+          undertext={`${numFromPinned} from pinned accounts`}
+        />
+        <HomeCard
+          icon="note"
+          header={numNewPosts}
+          explanation="New Posts"
+          undertext={`from people you follow`}
+        />
+        <HomeCard
+          icon="comment-discussion"
+          header={numInteractions}
+          explanation="New Interactions"
+          undertext={`${numNewLikes} new like${numNewLikes !== 1 ? "s" : ""} - ${numInteractions - numNewLikes} new comment${numInteractions - numNewLikes !== 1 ? "s" : ""}`}
+        />
       </View>
     </ScrollView>
   );
@@ -94,8 +124,8 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     borderRadius: 20,
     borderWidth: 2,
-    justifyContent:"flex-start",
-    gap:20,
+    justifyContent: "flex-start",
+    gap: 20,
     backgroundColor: "#f2ecdf",
     borderColor: "#717171",
   },
@@ -110,20 +140,19 @@ const styles = StyleSheet.create({
     textAlign: "left",
     width: "70%",
   },
-  icon:{
-    opacity:0.85,
+  icon: {
+    opacity: 0.85,
   },
-  iconContainer:{
-    position:"absolute",
-    top:16,
-    right:16
+  iconContainer: {
+    position: "absolute",
+    top: 16,
+    right: 16,
   },
-  undertext:{
+  undertext: {
     fontSize: 16,
     fontFamily: "Rubik_400Regular",
-    color:"#717171",
-    position:"relative",
-    top:10,
-    
-  }
+    color: "#717171",
+    position: "relative",
+    top: 10,
+  },
 });

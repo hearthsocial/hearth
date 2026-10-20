@@ -1,4 +1,11 @@
-import { ScrollView, View, StyleSheet, Text, Pressable, Image} from "react-native";
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  Text,
+  Pressable,
+  Image,
+} from "react-native";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
@@ -9,27 +16,27 @@ import { postProps } from "@/utils/types";
 export default function WideText() {
   const router = useRouter();
   const [selectedFocus, setFocus] = useState(1);
-  const [needNewPages,setNewPagesNeeded] = useState(true)
-  const [formattedData,setformattedData] = useState<postProps[]|null>(null)
-  const [postsSeen,setPostsSeen] = useState(0)
-  const [loading,setLoading] = useState(false)
-  useEffect(()=>{
-   let getNewPage = async()=>{
-    setLoading(true)
-    let page = await getNewestContent()
-    setformattedData(formatPostData(page))
-    setLoading(false)
-    }
-    getNewPage()
-    let length = formattedData?.length||0
-    setPostsSeen(postsSeen+length)
-  },[])
+  const [needNewPages, setNewPagesNeeded] = useState(true);
+  const [formattedData, setformattedData] = useState<postProps[] | null>(null);
+  const [postsSeen, setPostsSeen] = useState(0);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    let getNewPage = async () => {
+      setLoading(true);
+      let page = await getNewestContent();
+      setformattedData(formatPostData(page));
+      setLoading(false);
+    };
+    getNewPage();
+    let length = formattedData?.length || 0;
+    setPostsSeen(postsSeen + length);
+  }, []);
   return (
     <View
       style={{
-        flex:1,
+        flex: 1,
         width: "100%",
-        alignItems:"center"
+        alignItems: "center",
       }}
     >
       <View style={styles.top}>
@@ -57,11 +64,38 @@ export default function WideText() {
           </Text>
         </Pressable>
       </View>
-      {loading?<Image source={require("@/assets/images/loading_basic.gif")} style={{width:200,height:200}}/>:<ScrollView style={{alignSelf:"stretch",flex:1}} showsVerticalScrollIndicator={false} contentContainerStyle={{width:"100%",alignItems:'center',gap:30,margin:20}}>
-        {formattedData?.map((post,index)=>(<NotePost name={post.name}
-        text={post.text} pfp={post.pfp} bottomData={post.bottomData} views={post.views} key={`post#${+postsSeen-(20-index)}`} id={post.id} followers={post.followers} userLiked={post.userLiked} userReposted={post.userReposted}/>))}
-      </ScrollView>
-}
+      {loading ? (
+        <Image
+          source={require("@/assets/images/loading_basic.gif")}
+          style={{ width: 200, height: 200 }}
+        />
+      ) : (
+        <ScrollView
+          style={{ alignSelf: "stretch", flex: 1 }}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            width: "100%",
+            alignItems: "center",
+            gap: 30,
+            margin: 20,
+          }}
+        >
+          {formattedData?.map((post, index) => (
+            <NotePost
+              name={post.name}
+              text={post.text}
+              pfp={post.pfp}
+              bottomData={post.bottomData}
+              views={post.views}
+              key={`post#${+postsSeen - (20 - index)}`}
+              id={post.id}
+              followers={post.followers}
+              userLiked={post.userLiked}
+              userReposted={post.userReposted}
+            />
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 }

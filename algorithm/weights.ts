@@ -3,5 +3,5 @@ export function getWeights() {
   return {
     exploration: algoStorage.getNumber("exploration"),
     reiteration: algoStorage.getNumber("reiteration"),
-  }
+  };
 }
