@@ -44,7 +44,7 @@ export default function Sidebar() {
         </Text>
       </Pressable>
       <Pressable
-        onPress={() => router.push("/(wide)/shots")}
+        onPress={() => router.push("/(wide)/(feeds)/shots")}
         style={styles.screens}
       >
         {isActiveTab("shots") && <View style={styles.activeIndicator}></View>}
@@ -63,7 +63,7 @@ export default function Sidebar() {
         </Text>
       </Pressable>
       <Pressable
-        onPress={() => router.push("/(wide)/clips")}
+        onPress={() => router.push("/(wide)/(feeds)/clips")}
         style={styles.screens}
       >
         {isActiveTab("clips") && <View style={styles.activeIndicator}></View>}
@@ -82,7 +82,7 @@ export default function Sidebar() {
         </Text>
       </Pressable>
       <Pressable
-        onPress={() => router.push("/(wide)/notes")}
+        onPress={() => router.push("/(wide)/(feeds)/notes")}
         style={styles.screens}
       >
         {isActiveTab("notes") && <View style={styles.activeIndicator}></View>}

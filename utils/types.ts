@@ -1,6 +1,9 @@
+import { ComponentProps } from "react";
+import Octicons from "@expo/vector-icons/Octicons";
 //extra file types
 export type Base64Image = `data:image/${string};base64,${string}`;
 export type interactionAbrv = `${number}${'k'|'m'|'b'|''}`
+export type octiconsName = ComponentProps<typeof Octicons>['name']
 //algorithm
 export type preferences = { tag: string; val: number | undefined }[];
 export type scoredTags = { tag: string; score: number }[];

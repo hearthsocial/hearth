@@ -1,6 +1,6 @@
 import { RelativePathString, Stack, useRouter, useSegments } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, Pressable, useWindowDimensions } from "react-native";
+import { Image, Pressable, useWindowDimensions, View, Text, StyleSheet} from "react-native";
 import { supabase } from "@/utils/supabase";
 import isSignedIn from "@/utils/isSignedIn";
 import {
@@ -10,9 +10,11 @@ import {
   Rubik_500Medium,
 } from "@expo-google-fonts/rubik";
 import * as SplashScreen from "expo-splash-screen";
+import Octicons from "@expo/vector-icons/Octicons";
 import setUserData from "@/utils/setUserData";
 import storage from "@/utils/storage";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import ProfileOption from "@/components/wide/ProfileOption";
 export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
@@ -20,6 +22,7 @@ export default function RootLayout() {
   //@ts-ignore
   const isInAuth = segments.includes("(auth)");
   const [loading, setLoading] = useState(true);
+  const [profileTabOpen,setTabOpen] = useState(false)
   const [fontsLoaded, error] = useFonts({
     Rubik_400Regular,
     Rubik_600SemiBold,
@@ -77,7 +80,8 @@ export default function RootLayout() {
         headerTitle: "",
         headerShown: !isInAuth,
         headerLeft: () => (
-          <Pressable style={{ borderRadius: 60, width: 40, marginLeft: 20 }}>
+          <View>
+          <Pressable style={{ borderRadius: 60, width: 40, marginLeft: 20 }} onPress={()=>profileTabOpen?router.replace("/(wide)/(profile)/profile"):setTabOpen(true)}>
             <Image
               source={{
                 uri: `https://irluagoptkeyvfwoqtto.supabase.co/storage/v1/object/public/pfp/${pfp}`,
@@ -91,6 +95,15 @@ export default function RootLayout() {
               }}
             ></Image>
           </Pressable>
+          {profileTabOpen&&(
+            <View style={{backgroundColor:"#f2f2f2",width:200,height:400,position:"absolute",marginTop:50,marginLeft:5,borderRadius:20,borderWidth:1, borderColor:"#717171",boxShadow: '1px 4px 8px rgba(0, 0, 0, 0.18)',gap:20,}}>
+              <ProfileOption name={"Profile"} icon={"person"}redirectTo={"/(wide)/(profile)/profile"} isFirst/>
+              <ProfileOption name={"Settings"} icon={"gear"}redirectTo={"/(wide)/(profile)/profile"}/>
+              <ProfileOption name={"Customize"} icon={"paintbrush"}redirectTo={"/(wide)/(profile)/profile"}/>
+              <ProfileOption name={"Get Blaze"} icon={"flame"}redirectTo={"/(wide)/(profile)/profile"} isBold/>
+              <ProfileOption name={"Log out"} icon={"sign-out"}redirectTo={"/(wide)/(profile)/profile"} isPowerful/>
+          </View>)}
+          </View>
         ),
         headerRight: () => (
           <Pressable style={{ padding: 10, borderRadius: 12, marginRight: 20 }}>
@@ -101,3 +114,4 @@ export default function RootLayout() {
     />
   );
 }
+
