@@ -32,7 +32,8 @@ export default function RootLayout() {
   const [pfp, setPfp] = useState<string | undefined>("noprofile.jpg");
   useEffect(() => {
     const isWide = width >= 768;
-    const handleRedirect = async () => {
+    setTabOpen(false)
+    const handleRedirect = async ()=>{
       const targetRoot = isWide ? "(wide)" : "(mobile)";
 
       const signedIn = await isSignedIn();
@@ -60,7 +61,7 @@ export default function RootLayout() {
           router.replace(targetPath);
         }
 
-        if (signedIn && isInAuth) {
+        if (signedIn && isInAuth && segments[2]!=="logout") {
           router.replace(`/${targetRoot}`);
         }
       }
@@ -101,7 +102,7 @@ export default function RootLayout() {
               <ProfileOption name={"Settings"} icon={"gear"}redirectTo={"/(wide)/(profile)/profile"}/>
               <ProfileOption name={"Customize"} icon={"paintbrush"}redirectTo={"/(wide)/(profile)/profile"}/>
               <ProfileOption name={"Get Blaze"} icon={"flame"}redirectTo={"/(wide)/(profile)/profile"} isBold/>
-              <ProfileOption name={"Log out"} icon={"sign-out"}redirectTo={"/(wide)/(profile)/profile"} isPowerful/>
+              <ProfileOption name={"Log out"} icon={"sign-out"}redirectTo={"/(wide)/(auth)/logout"} isPowerful/>
           </View>)}
           </View>
         ),

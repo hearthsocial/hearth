@@ -4,8 +4,9 @@ type Props = {
   text: string;
   type: 1 | 2 | 3;
   onClick: Function;
+  width?:`${number}%`
 };
-export default function Button({ text, type, onClick }: Props) {
+export default function Button({ text, type, onClick,width}: Props) {
   let color;
   switch (type) {
     case 1:
@@ -21,7 +22,7 @@ export default function Button({ text, type, onClick }: Props) {
   return (
     <Pressable
       onPress={() => onClick()}
-      style={{ width: "50%", backgroundColor: color, borderRadius: 30 }}
+      style={{ width: width?width:"50%", backgroundColor: color, borderRadius: 30 }}
     >
       <Text
         style={{
