@@ -46,7 +46,7 @@ export default function Login() {
     <View style={styles.container}>
       <View style={styles.topBox}>
         <Image
-          source={require("@/assets/images/hearth.svg")}
+          source={require("@/assets/images/hearthnobackground.png")}
           style={styles.logo}
         />
         <Text style={styles.header}>Login</Text>
@@ -54,7 +54,7 @@ export default function Login() {
 
       <Text style={styles.error}>{error}</Text>
       <View style={styles.inputBox}>
-        <Input placeholder="Email" toSet={setEmail} value={email} />
+        <Input placeholder="Email" toSet={setEmail} value={email} isEmail/>
         <Input
           placeholder="Password"
           toSet={setPassword}

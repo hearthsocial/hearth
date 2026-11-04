@@ -88,7 +88,7 @@ export default function Signup() {
     <View style={styles.container}>
       <View style={styles.topBox}>
         <Image
-          source={require("@/assets/images/hearth.svg")}
+          source={require("@/assets/images/hearthnobackground.png")}
           style={styles.logo}
         />
         <Text style={styles.header}>Signup</Text>
@@ -96,7 +96,7 @@ export default function Signup() {
 
       <Text style={styles.error}>{error}</Text>
       <View style={styles.inputBox}>
-        <Input placeholder="Username" toSet={setUsername} value={username} />
+        <Input placeholder="Username" toSet={setUsername} value={username} noCap/>
         {usernameState == 1 && (
           <Text style={styles.waitingUsername}>Checking...</Text>
         )}
@@ -110,7 +110,7 @@ export default function Signup() {
             @{username} is available!
           </Text>
         )}
-        <Input placeholder="Email" toSet={setEmail} value={email} />
+        <Input placeholder="Email" toSet={setEmail} value={email} isEmail/>
         <Input
           placeholder="Password"
           toSet={setPassword}
