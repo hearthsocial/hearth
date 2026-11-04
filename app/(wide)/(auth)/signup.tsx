@@ -7,7 +7,7 @@ import { supabase } from "@/utils/supabase";
 import storage from "@/utils/storage";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, ScrollView } from "react-native";
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -85,7 +85,9 @@ export default function Signup() {
     router.replace("/(wide)");
   }
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}  contentContainerStyle={{flexGrow: 1,
+    justifyContent: "center",
+    }}>
       <View style={styles.topBox}>
         <Image
           source={require("@/assets/images/hearthnobackground.png")}
@@ -142,15 +144,14 @@ export default function Signup() {
           </Text>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: "#f2ecdf",
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
+    
   },
   error: {
     fontFamily: "Rubik_400Regular",
@@ -176,6 +177,8 @@ const styles = StyleSheet.create({
   logo: {
     width: 250,
     height: 250,
+    position:"relative",
+    
   },
   side: {
     flex: 1,
