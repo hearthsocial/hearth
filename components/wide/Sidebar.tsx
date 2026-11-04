@@ -14,7 +14,10 @@ export default function Sidebar() {
     ) {
       return true;
     }
-    return segments[1] == tab;
+    return getCurTab() == tab;
+  }
+  function getCurTab(){
+    return segments[segments.length-1]
   }
   return (
     <View
@@ -50,7 +53,7 @@ export default function Sidebar() {
         onPress={() => router.push("/(wide)/(feeds)/shots")}
         style={styles.screens}
       >
-        {isActiveTab("shots") && <View style={styles.activeIndicator}></View>}
+        {isActiveTab("shots") && (<View style={styles.activeIndicator}></View>)}
         <Octicons
           name="image"
           size={28}
@@ -69,7 +72,7 @@ export default function Sidebar() {
         onPress={() => router.push("/(wide)/(feeds)/clips")}
         style={styles.screens}
       >
-        {isActiveTab("clips") && <View style={styles.activeIndicator}></View>}
+        {isActiveTab("clips") && (<View style={styles.activeIndicator}></View>)}
         <Octicons
           name="device-camera-video"
           size={28}
@@ -88,7 +91,7 @@ export default function Sidebar() {
         onPress={() => router.push("/(wide)/(feeds)/notes")}
         style={styles.screens}
       >
-        {isActiveTab("notes") && <View style={styles.activeIndicator}></View>}
+        {isActiveTab("notes") && (<View style={styles.activeIndicator}></View>)}
         <Octicons
           name="pencil"
           size={28}

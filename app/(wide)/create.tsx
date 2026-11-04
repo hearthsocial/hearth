@@ -14,7 +14,8 @@ export default function WideCreate() {
   const [tags, setTags] = useState([]);
   const [isPublic, setPublic] = useState(true);
   const postNote = async function () {
-    const id = storage.getString("id");
+    const id = await storage.getString("id");
+   console.log(id) 
     await supabase.from("posts").insert({
       postedby: id,
       text: noteText,
