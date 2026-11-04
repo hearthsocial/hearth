@@ -7,6 +7,8 @@ type Props = {
   isSecure?: boolean;
   width?: DimensionValue;
   height?: DimensionValue;
+  isEmail?: boolean;
+  noCap?: boolean;
 };
 export default function Input({
   placeholder,
@@ -15,12 +17,20 @@ export default function Input({
   isSecure,
   width,
   height,
+  isEmail,
+  noCap,
 }: Props) {
   return (
     <TextInput
       placeholder={placeholder}
       onChangeText={toSet}
       value={value}
+      placeholderTextColor={"#252525"}
+      secureTextEntry={isSecure ? true : false}
+      autoCapitalize={isEmail||noCap?"none":undefined}
+      keyboardType={isEmail?"email-address":undefined}
+      autoComplete={isEmail?"email":undefined}
+      textContentType={isEmail?"emailAddress":isSecure?"password":undefined}
       style={{
         borderColor: "gray",
         borderWidth: 1,
@@ -31,9 +41,7 @@ export default function Input({
         width: width ? width : "50%",
         height: height ? height : 50,
         fontSize: 20,
-        gap: 15,
       }}
-      secureTextEntry={isSecure ? true : false}
     />
   );
 }
