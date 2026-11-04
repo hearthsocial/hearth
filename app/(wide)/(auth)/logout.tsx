@@ -3,13 +3,14 @@ import { supabase } from "@/utils/supabase";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-
+import storage from "@/utils/storage";
 export default function WideLogout() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   useEffect(() => {
     const logout = async () => {
       await supabase.auth.signOut({ scope: "local" });
+      await storage.clear()
       setLoading(false);
     };
     logout();
