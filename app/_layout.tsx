@@ -22,6 +22,7 @@ import setUserData from "@/utils/setUserData";
 import storage from "@/utils/storage";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import ProfileOption from "@/components/wide/ProfileOption";
+import getProfileUrl from "@/utils/getProfileUrl";
 export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
@@ -44,7 +45,7 @@ export default function RootLayout() {
       const targetRoot = isWide ? "(wide)" : "(mobile)";
 
       const signedIn = await isSignedIn();
-
+          
       const currentRoot = segments[0];
 
       let targetPath = `/${targetRoot}`;
@@ -53,8 +54,9 @@ export default function RootLayout() {
         targetPath = `/${targetRoot}/(auth)/login`;
       } else {
         await setUserData();
-        const pfplocal = await storage.getString("pfp");
-        setPfp(pfplocal);
+        const pfplocal = await storage.getString("pfp")??"noprofile.jpg"
+        let pfplink = await getProfileUrl(pfplocal)
+        setPfp(pfplink)
       }
       const alreadyInCorrectRoot = currentRoot === targetRoot;
 
@@ -99,7 +101,7 @@ export default function RootLayout() {
             >
               <Image
                 source={{
-                  uri: `https://irluagoptkeyvfwoqtto.supabase.co/storage/v1/object/public/pfp/${pfp}`,
+                  uri: pfp,
                 }}
                 style={{
                   width: 40,
