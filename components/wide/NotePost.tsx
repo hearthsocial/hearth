@@ -132,8 +132,10 @@ const styles = StyleSheet.create({
   post: {
     width: "65%",
     borderWidth: 1,
+    height:180,
     backgroundColor: "#f2ecdf",
-    borderRadius: 30,
+    padding:5,
+    borderRadius: 50,
   },
   innerPost: {
     margin: 20,
@@ -141,7 +143,7 @@ const styles = StyleSheet.create({
   pfp: {
     width: 40,
     height: 40,
-    borderRadius: 50,
+    borderRadius:12,
   },
   person: {
     flexDirection: "row",
@@ -171,7 +173,9 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     padding: 10,
     paddingHorizontal: 20,
-    borderRadius: 15,
+    borderRadius: 14,
+    width:80,
+    height:40,
     boxShadow: "1px 4px 8px rgba(0, 0, 0, 0.18)",
   },
   bottomText: {
@@ -180,9 +184,9 @@ const styles = StyleSheet.create({
   },
   follow: {
     marginHorizontal: 10,
-    borderWidth: 1,
-    padding: 4,
-    borderRadius: 5,
-    backgroundColor: "black",
+    padding: 6,
+    borderRadius: 9,
+    height:30,
+    backgroundColor: "#eb6a02",
   },
 });
