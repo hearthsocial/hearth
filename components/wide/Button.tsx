@@ -34,6 +34,7 @@ export default function Button({ text, type, onClick, width }: Props) {
           padding: 20,
           textAlign: "center",
           fontSize: 20,
+          color:"white"
         }}
       >
         {text}
